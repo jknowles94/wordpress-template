@@ -21,7 +21,7 @@ module.exports = function (grunt) {
             dev: {
                 options: {
                     sassDir: '<%= config.sassPath %>',
-                    cssDir: '../html5blank-stable 2/',
+                    cssDir: '../main-template/',
                     environment: 'development',
                     sourcemap: '<%= config.sourcemap %>'
                 }
@@ -29,7 +29,7 @@ module.exports = function (grunt) {
             live: {
                 options: {
                     sassDir: '<%= config.sassPath %>',
-                    cssDir: '../html5blank-stable 2/',
+                    cssDir: '../main-template/',
                     environment: 'production'
                 }
             }
@@ -45,8 +45,8 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     src: 'style.css',
-                    cwd: '../html5blank-stable 2/',
-                    dest: '../html5blank-stable 2/'
+                    cwd: '../main-template/',
+                    dest: '../main-template/'
                 }]
             }
         },
