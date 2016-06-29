@@ -35,20 +35,22 @@ module.exports = function (grunt) {
             }
         },
 
-        // Add vendor prefixed styles
-        autoprefixer: {
-            options: {
-                browsers: ['last 2 version', 'last 4 Explorer versions'], 
-                map: '<%= config.sourcemap %>'
-            },
-            dist: {
-                files: [{
-                    expand: true,
-                    src: 'style.css',
-                    cwd: '../main-template/',
-                    dest: '../main-template/'
-                }]
-            }
+        // Updated version of Autoprefixer uses postcss instead
+        postcss: {
+          options: {
+            map: '<%= config.sourcemap %>',
+            processors: [
+              require('autoprefixer')({browsers: ['last 2 version']})
+            ]
+          },
+          dist: {
+            files: [{
+                expand: true,
+                src: 'style.css',
+                cwd: '../main-template/',
+                dest: '../main-template/'
+            }]
+          }
         },
 
         // Watchs files for changes then compiles and reloads the browser
@@ -63,7 +65,7 @@ module.exports = function (grunt) {
 
             compass: {
                 files: ['<%= config.sassPath %>/{,*/}*.{scss,sass}'],
-                tasks: ['compass:dev', 'autoprefixer', 'notify:compass'],
+                tasks: ['compass:dev', 'postcss', 'notify:compass'],
                 options: {
                     livereload: true
                 }
@@ -170,9 +172,9 @@ module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
 
     // Default task(s)
-    grunt.registerTask('default', ['compass:dev', 'autoprefixer']);
+    grunt.registerTask('default', ['compass:dev', 'postcss']);
     grunt.registerTask('watchsync', ['browserSync', 'watch']);
     grunt.registerTask('setup', ['clean:precommit','shell:precommit','clean:pull','shell:pull']);
-    grunt.registerTask('live', ['jshint', 'uglify', 'compass:live', 'autoprefixer', 'cssmin']);
+    grunt.registerTask('live', ['jshint', 'uglify', 'compass:live', 'postcss', 'cssmin']);
     grunt.registerTask('buildJS', ['useminPrepare','concat:generated']);
 };
