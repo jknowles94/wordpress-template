@@ -2,3 +2,4 @@
 wp-config.php
 !wp-content/uploads/.keep
 wp-content/uploads/*/*
+wp-content/themes/main-template/.sass-cache
